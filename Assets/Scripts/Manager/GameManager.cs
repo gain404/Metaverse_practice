@@ -5,33 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    static GameManager gameManager;
-    UIManager uiManager;
-    private int currentScore = 0;
+    private int currentCoin = 0;
+    private int newCoin = 0;
 
-    public static GameManager Instance { get { return gameManager; } }
+    public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        gameManager = this;
-        uiManager = FindObjectOfType<UIManager>();
+        Instance = this;
     }
 
-    private void Start()
+    internal void AddCoin(int newCoin)
     {
-        uiManager.UpdateScore(0);
-    }
-
-    public void GameOver()
-    {
-        uiManager.SetRetry();
-    }
-
-    public void AddScore(int score)
-    {
-        currentScore += score;
-        Debug.Log("Score : " + currentScore);
-        uiManager.UpdateScore(currentScore);
+        currentCoin += newCoin;
     }
 
 }
