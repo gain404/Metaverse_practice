@@ -4,8 +4,47 @@ using UnityEngine;
 
 public class BgLooper : MonoBehaviour
 {
-    //BgLooper에서 해야 하는 일
-    //카메라 뒤에서 카메라와 똑같은 속도로 따라가기
-    //따라가다가 장애물에 부딪히면 앞에 똑같은 장애물이 스폰됨
-    //무한 스폰 & 뒤에 있는 안 쓰는 배경은 파괴하기
+
+    public int numBgCount = 5;
+    public int obstacleCount = 0;
+    public Vector3 obstacleLastPosition = Vector3.zero;
+
+    void Start()
+    {
+        ObstacleController[] obstacles = GameObject.FindObjectsOfType<ObstacleController>();
+        obstacleLastPosition = obstacles[0].transform.position;
+        obstacleCount = obstacles.Length;
+
+        for (int i = 0; i < obstacleCount; i++)
+        {
+            obstacleLastPosition = obstacles[i].SetRandomPlace(obstacleLastPosition, obstacleCount);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Triggerd : " + collision.name);
+
+        if (collision.CompareTag("Background"))
+        {
+            float widthOfBgObject = ((BoxCollider2D)collision).size.x;
+            Vector3 pos = collision.transform.position;
+
+            pos.x += widthOfBgObject * numBgCount;
+            collision.transform.position = pos;
+            return;
+        }
+
+        ObstacleController obstacle = collision.GetComponent<ObstacleController>();
+        if (obstacle)
+        {
+            obstacleLastPosition = obstacle.SetRandomPlace(obstacleLastPosition, obstacleCount);
+        }
+    }
 }

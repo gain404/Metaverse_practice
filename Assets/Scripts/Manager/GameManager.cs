@@ -1,18 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    static GameManager gameManager;
+    UIManager uiManager;
+    private int currentScore = 0;
+
+    public static GameManager Instance { get { return gameManager; } }
+
+    private void Awake()
     {
-        
+        gameManager = this;
+        uiManager = FindObjectOfType<UIManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        uiManager.UpdateScore(0);
     }
+
+    public void GameOver()
+    {
+        uiManager.SetRetry();
+    }
+
+    public void AddScore(int score)
+    {
+        currentScore += score;
+        Debug.Log("Score : " + currentScore);
+        uiManager.UpdateScore(currentScore);
+    }
+
 }
