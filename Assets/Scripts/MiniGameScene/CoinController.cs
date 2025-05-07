@@ -69,9 +69,9 @@ public class CoinController : MonoBehaviour
         {
             Vector3 pos = SetRandomPlace();
             coin.transform.position = pos;
-
         }
     }
+
     private void ChangeState()
     {
         enabled = false;
