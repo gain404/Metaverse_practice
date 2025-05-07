@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    bool isJump = false;
-    float jumpScale = 3f;
+    //bool isJump = false;
+    //float jumpScale = 3f;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
         PlayerFlip(horizontal); //좌우반전
         PlayerRun(direction); //달리기
-        PlayerJump();
+        //PlayerJump(); //점프 구현 실패
 
     }
 
@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     protected void PlayerJump()
     {
         Vector3 jumpPos = transform.localPosition;
@@ -81,7 +82,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
+    */
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "NPC2")

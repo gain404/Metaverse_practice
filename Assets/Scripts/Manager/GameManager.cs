@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private int currentCoin = 0;
-    private int newCoin = 0;
+    internal int currentCoin;
+    internal int newCoin;
 
     public static GameManager Instance { get; private set; }
 
@@ -15,9 +15,10 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    internal void AddCoin(int newCoin)
+    internal void AddCoin(int newCoinAmount)
     {
-        currentCoin += newCoin;
+        newCoin += newCoinAmount;
+        currentCoin += newCoinAmount;
     }
 
 }

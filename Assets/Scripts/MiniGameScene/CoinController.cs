@@ -6,7 +6,6 @@ using UnityEngine;
 public class CoinController : MonoBehaviour
 {
     MiniGamePlayer miniGamePlayer;
-    bool isPlayerDead = false;
 
     private Transform coinPosTrans;
     Transform miniGamePlayerTrans;
@@ -20,7 +19,16 @@ public class CoinController : MonoBehaviour
         GameObject coinPrefabs = Resources.Load<GameObject>("Prefabs/Coin");
         miniGamePlayer = GameObject.FindObjectOfType<MiniGamePlayer>();
         coinPosTrans = coinPrefabs.transform;
+    }
+
+    private void OnEnable()
+    {
         MiniGamePlayer.OnPlayerDied += ChangeState;
+    }
+
+    private void OnDisable()
+    {
+        MiniGamePlayer.OnPlayerDied -= ChangeState;
     }
 
     void Update()
@@ -66,9 +74,12 @@ public class CoinController : MonoBehaviour
     }
     private void ChangeState()
     {
-        isPlayerDead = true;
         enabled = false;
         return;
     }
-
+    //internal void RetryState()
+    //{
+    //    isPlayerDead = false;
+    //    enabled = true;
+    //}
 }

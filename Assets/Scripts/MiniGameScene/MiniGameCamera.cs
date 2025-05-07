@@ -11,7 +11,16 @@ public class MiniGameCamera : CameraController
     {
         miniGamePlayer = GameObject.FindObjectOfType<MiniGamePlayer>();
         cameraPos = transform;
+    }
+
+    private void OnEnable()
+    {
         MiniGamePlayer.OnPlayerDied += ChangeState;
+    }
+
+    private void OnDisable()
+    {
+        MiniGamePlayer.OnPlayerDied -= ChangeState;
     }
 
     protected override void Update()
@@ -28,7 +37,12 @@ public class MiniGameCamera : CameraController
     {
         isPlayerDead = true;
         enabled = false;
-        return;
     }
+
+    //internal void RetryState()
+    //{
+    //    isPlayerDead = false;
+    //    enabled = true;
+    //}
 
 }

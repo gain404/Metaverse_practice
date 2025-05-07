@@ -11,6 +11,8 @@ public class MiniGamePlayer : MonoBehaviour
 
     Rigidbody2D rb;
     GameObject player;
+    [SerializeField] GameObject panel;
+    [SerializeField] UIManager uimanager;
 
     private bool isFlap = false;
     private bool isDead = false;
@@ -37,6 +39,9 @@ public class MiniGamePlayer : MonoBehaviour
             Debug.Log("Game Over");
             Destroy(player);
             OnPlayerDied?.Invoke();
+            panel.SetActive(true);
+            uimanager.SaveCoin();
+            isDead = false;
         }
         else if (isDead == false)
         {

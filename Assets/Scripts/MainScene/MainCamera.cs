@@ -13,7 +13,13 @@ public class MainCamera : CameraController
 
     protected override void Update()
     {
-        Vector3 targetPos = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
+        float angleX = player.transform.position.x;
+        float angleY = player.transform.position.y;
+
+        angleX = Mathf.Clamp(angleX, -5.9f, 5.9f);
+        angleY = Mathf.Clamp(angleY, -3.9f, 4.3f);
+
+        Vector3 targetPos = new Vector3(angleX, angleY, -10f);
         cameraPos.position = Vector3.Lerp(cameraPos.position, targetPos, Time.deltaTime * 4);
     }
 }
